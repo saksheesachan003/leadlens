@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadLens</title>
+<meta name="description" content="Turn a list of company websites into verified, scored, CRM-ready leads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='14' cy='14' r='9' fill='none' stroke='%23C59A1E' stroke-width='4'/><path d='M21 21l7 7' stroke='%231C2A35' stroke-width='4' stroke-linecap='round'/></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><circle cx="14" cy="14" r="9" fill="none" stroke="var(--gold)" stroke-width="4"/><path d="M21 21l7 7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+    <span>LeadLens</span>
+  </div>
+  <div class="lens" role="radiogroup" aria-label="Scoring lens">
+    <button role="radio" aria-checked="true" data-lens="sales">Sales outreach</button>
+    <button role="radio" aria-checked="false" data-lens="acquisition">Acquisition targets</button>
+  </div>
+  <p class="lens-hint" id="lensHint">Ranks by who you can reach and how well they fit.</p>
+</header>
+
+<div class="layout">
+  <aside class="rail">
+    <form id="jobForm" novalidate>
+      <h2>Websites to enrich</h2>
+      <label for="domains" class="sr-only">Websites, one per line</label>
+      <textarea id="domains" rows="9" placeholder="acmeplumbing.com&#10;https://www.example-mfg.com&#10;contact@somefirm.com" spellcheck="false"></textarea>
+
+      <div class="drop" id="drop" tabindex="0" role="button" aria-describedby="dropHint">
+        <input type="file" id="csvFile" accept=".csv,text/csv" hidden>
+        <strong id="dropTitle">Upload a CSV instead</strong>
+        <span id="dropHint">We find the website column for you.</span>
+      </div>
+
+      <h2>Target industries <span class="optional">optional</span></h2>
+      <div class="chips" id="industries"></div>
+
+      <button type="submit" class="primary" id="runBtn">Find and score leads</button>
+      <button type="button" class="link" id="demoBtn">Try it with demo companies</button>
+      <p class="form-error" id="formError" role="alert" hidden></p>
+      <p class="fineprint">Reads only public pages, follows robots.txt, and never emails anyone to verify addresses.</p>
+    </form>
+  </aside>
+
+  <main class="results" id="results">
+    <section class="empty" id="empty">
+      <h1>See which companies are worth a call today.</h1>
+      <p>Paste company websites on the left. LeadLens reads each site, pulls the owner's contact details, checks the emails can receive mail, removes duplicates, and ranks every lead with the reasons spelled out.</p>
+      <ol class="how">
+        <li><b>Add websites</b> by pasting them or uploading a CSV from your CRM.</li>
+        <li><b>Pick a lens</b>: sales outreach or acquisition targets. Switch any time; scores update instantly.</li>
+        <li><b>Export the hot leads</b> as a CSV that imports straight into HubSpot or Salesforce.</li>
+      </ol>
+    </section>
+
+    <section id="progressWrap" class="progress" hidden aria-live="polite">
+      <div class="bar"><span id="progressBar"></span></div>
+      <p id="progressText">Starting…</p>
+    </section>
+
+    <section id="board" hidden>
+      <div class="summary" id="summary"></div>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Search company, contact, city" aria-label="Search leads">
+        <label class="check"><input type="checkbox" id="verifiedOnly"> Verified email only</label>
+        <label class="range">Min score <input type="range" id="minScore" min="0" max="100" step="5" value="0"><output id="minScoreOut">0</output></label>
+        <div class="actions">
+          <button type="button" class="ghost" id="copyBtn">Copy emails</button>
+          <button type="button" class="primary small" id="exportBtn">Export CSV</button>
+        </div>
+      </div>
+      <p class="notice" id="notice" hidden></p>
+      <div class="table-wrap">
+        <table id="table">
+          <thead><tr>
+            <th scope="col" class="c-score">Score</th>
+            <th scope="col">Company</th>
+            <th scope="col">Best contact</th>
+            <th scope="col" class="c-phone">Phone</th>
+            <th scope="col">Signals</th>
+            <th scope="col">Next step</th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <p class="no-match" id="noMatch" hidden>No leads match these filters. Lower the minimum score or clear the search.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="dTitle" role="dialog">
+  <button class="close" id="closeDrawer" aria-label="Close details">×</button>
+  <div id="drawerBody"></div>
+</aside>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

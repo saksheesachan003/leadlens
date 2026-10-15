@@ -1,0 +1,15 @@
+# One-click deploy on Render: New > Blueprint > point at this repo.
+services:
+  - type: web
+    name: leadlens
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: LEADLENS_DB
+        value: /data/leadlens.db
+    # On a paid plan, uncomment to keep the cache across deploys:
+    # disk:
+    #   name: leadlens-data
+    #   mountPath: /data
+    #   sizeGB: 1
