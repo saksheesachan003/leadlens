@@ -6,7 +6,7 @@ Built for the Caprae Capital Full Stack Developer challenge as an enhancement to
 
 ![Results view](docs/screenshots/results.png)
 
-> 🎥 Video walkthrough: _add link_  ·  🌐 Live demo: https://leadlens-chi.vercel.app/
+> 🌐 Live demo: https://leadlens-chi.vercel.app/
 
 ---
 
