@@ -6,7 +6,7 @@ Built for the Caprae Capital Full Stack Developer challenge as an enhancement to
 
 ![Results view](docs/screenshots/results.png)
 
-> 🎥 Video walkthrough: _add link_  ·  🌐 Live demo: _add link_
+> 🎥 Video walkthrough: _add link_  ·  🌐 Live demo: https://leadlens-chi.vercel.app/
 
 ---
 
@@ -35,7 +35,7 @@ Switching the lens or target industries **re-ranks instantly without re-scraping
 ## Quick start
 
 ```bash
-git clone <your-repo-url> leadlens && cd leadlens
+git clone https://github.com/saksheesachan003/leadlens.git && cd leadlens
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
 uvicorn app.main:app --reload
